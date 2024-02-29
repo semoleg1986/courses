@@ -19,3 +19,11 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.title
+
+class ProductAccess(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='product_accesses')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='accesses')
+    access_granted = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s access to {self.product.name}"

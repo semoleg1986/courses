@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Lesson
+from .models import Product, Lesson, ProductAccess
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -12,3 +12,5 @@ class LessonAdmin(admin.ModelAdmin):
     list_display = ['title', 'product', 'video_url']
     list_filter = ['product']
     search_fields = ['title']
+
+admin.site.register(ProductAccess)
