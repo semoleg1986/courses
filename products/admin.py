@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Lesson, ProductAccess
+from .models import Product, Lesson, ProductAccess, Group
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -14,3 +14,5 @@ class LessonAdmin(admin.ModelAdmin):
     search_fields = ['title']
 
 admin.site.register(ProductAccess)
+
+admin.site.register(Group)
