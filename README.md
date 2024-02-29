@@ -20,7 +20,7 @@
 /auth/register/
 ```
 
-# Sign In User
+# Sign In User (token)
 
 ```
 /auth/login/
