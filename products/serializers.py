@@ -8,3 +8,8 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
     def get_lessons_count(self, obj):
         return Lesson.objects.filter(product=obj).count()
+
+class LessonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lesson
+        fields = '__all__'
