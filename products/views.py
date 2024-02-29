@@ -1,4 +1,6 @@
 from rest_framework import viewsets, permissions
+from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import PermissionDenied
 from .models import Product, Lesson
 from .serializers import ProductSerializer, LessonSerializer
 
@@ -25,6 +27,13 @@ class LessonViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_authenticated:
-            return Lesson.objects.filter(product__accesses__user=user)
-        return Lesson.objects.none()
+        product_id = self.request.query_params.get('product_id')
+        
+        if product_id:
+            product = get_object_or_404(Product, pk=product_id)
+            if product.accesses.filter(user=user).exists():
+                return Lesson.objects.filter(product_id=product_id)
+            else:
+                raise PermissionDenied("У вас нет доступа к урокам этого продукта.")
+        else:
+            raise PermissionDenied("Необходимо указать product_id.")
